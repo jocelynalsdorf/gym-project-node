@@ -1,7 +1,7 @@
 //reuire modules
 var express = require('express');
 var app = express();
-var ejs = require('ejs');
+var jade = require('jade');
 
 //variables
 
@@ -13,11 +13,11 @@ app.use(express.static(__dirname + "/public"));
 
 //configure expres to use a views engine and establish the directotry they are stored in
 app.set("views", root + "/views");
-app.set("view engine", "ejs");
+app.set("view engine", "jade");
 
 //make dynamic routes
 
-app.get("/ejs_test", function ejs_testCallBack(req, res) {
+app.get("/jade_test", function jade_testCallBack(req, res) {
  // res.send("why Hello!");
   res.render("test");
 });

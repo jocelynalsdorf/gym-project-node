@@ -8,7 +8,7 @@
     "url": ""
   },
   "dependencies": {
-    "ejs": "^2.3.4",
+    "jade": "*",
     "express": "*"
   }
 }
