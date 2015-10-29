@@ -1,0 +1,13 @@
+{
+  "name": "nodeIntro",
+  "version": "0.0.2",
+  "description": "",
+  "author": {
+    "name": "joss",
+    "email":"",
+    "url": ""
+  },
+  "dependencies": {
+    "express": "*"
+  }
+}
