@@ -8,7 +8,8 @@
     "url": ""
   },
   "dependencies": {
-    "jade": "*",
-    "express": "*"
+    "body-parser": "^1.14.1",
+    "express": "*",
+    "jade": "*"
   }
 }

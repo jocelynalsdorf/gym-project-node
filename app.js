@@ -1,55 +1,109 @@
-//reuire modules
-var express = require('express');
+
+
+
+/**
+* Express App
+* @author Jason Hargrove <jason@objas.com>
+**/
+
+
+/** Require modules **/
+
+var express = require("express");
+
+var jade = require("jade");
+var bodyParser = require('body-parser');
+/** Initialize Express app object **/
+
 var app = express();
-var jade = require('jade');
 
-//variables
+/** Variables **/
 
-var root = __dirname;
-var port = 3000;
-//configure express
+// Server will be browsed at http://localhost:3000
 
-app.use(express.static(__dirname + "/public"));
+var root = __dirname
+  , port = 3000;
 
-//configure expres to use a views engine and establish the directotry they are stored in
-app.set("views", root + "/views");
-app.set("view engine", "jade");
+/** Configure Express app **/
 
-//make dynamic routes
-//get the edit profile form
-app.get("/settings/profile", function editProfileCb(req, res) {
-  res.render("profile-form");
+app.use( express.static( root + "/public" ));
+
+app.set( "views", root + "/views" );
+
+app.set( "view engine", "jade" );
+
+/** Add middleware that will look for data when requests are made **/
+
+//create application/json parser
+var jsonParser = bodyParser.json()
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+/** Create some Express routes **/
+
+app.get( "/settings/profile", function editProfileCb ( req, res ) {
+
+  res.render( "profile-form" );
+
 });
 
-//post route for form
-app.post("/settings/profile", function postProfileCb(req, res) {
-  //this code is run after the post is sent to the server
-  console.log("Post Received");
-  res.json({"status": "post recieved"});
-});
+app.post( "/settings/profile", urlencodedParser, function (req, res) {
+  if (!req.body) return res.sendStatus(400)
+  console.log( "POST RECEIVED!" );
 
+  // report post data to console
 
-app.get("/someJSON", function someJSONCallback (req, res){
-  res.json({
-    "one": {
-      "so": "cool"
-    },
-    "two": "supercool",
-    "three": ["love", "json", "and", "javascript"]
+  console.log( req.body );
+
+  // reply to browser that something has happened and close the loop
+
+  return res.json({
+    "firstName": req.body.firstNameField,
+    "lastName": req.body.lastNameField,
+    "bio": req.body.bioField
   })
+
 });
 
-app.get("/beginning", function beginningCallback (req, res){
-  res.send("<h1>This is just the start</h1><p><3</p>")
-})
-//app.post();
 
+/** Start server on port 3000 **/
 
+// Use a callback function to report status to the console
 
-//start server
-app.listen(port, function listenCallback() {
-  console.log("express server on port" + port);
+// The callback fires after the server is started
+
+app.listen( port, function listenCallback () {
+  console.log( "Express server is listening on port " + port );
+  console.log( "To test, browse to http://localhost:" + port );
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
