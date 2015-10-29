@@ -1,0 +1,28 @@
+
+
+doctype strict
+
+html
+
+  html
+
+    title Profile
+
+    link( 
+        rel = "stylesheet"
+      , type = "text/css"
+      , href = "/css/style.css" )
+
+  body 
+
+    div( class = "container width700" )
+
+      div( class = "jumbotron text-center" )
+
+        div #{ firstname } #{ lastname }
+
+        div #{ bio }
+
+        div
+
+          a( href = "settings/profile" ) Edit Profile

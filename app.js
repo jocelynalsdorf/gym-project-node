@@ -13,6 +13,7 @@ var express = require("express");
 
 var jade = require("jade");
 var bodyParser = require('body-parser');
+var fs = require('fs')
 /** Initialize Express app object **/
 
 var app = express();
@@ -43,33 +44,56 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 /** Create some Express routes **/
 
 app.get( "/settings/profile", function editProfileCb ( req, res ) {
-
+//when you render templates you can pass variables as options
   res.render( "profile-form" );
 
 });
 
+
 app.post( "/settings/profile", urlencodedParser, function (req, res) {
   if (!req.body) return res.sendStatus(400)
   console.log( "POST RECEIVED!" );
+  //fs write file is a core node method
+  //** asynchronously writes data to a file
+  //
+  fs.writeFile("data.json", JSON.stringify(req.body, null, 2), function writeCb(err) {
+    
+    if (err) {
+      res.json({err: true, msg: err.msg});
+    }
+    console.log("post data saved", req.body);
+    res.redirect("/profile");
 
-  // report post data to console
+  });//end of cb
+});//end of post
 
-  console.log( req.body );
+app.get("/profile", function profileCb (req, res) {
 
-  // reply to browser that something has happened and close the loop
+  fs.readFile( "data.json", function readCallback ( err, data ) {
+    // Error handling
+    if ( err ) {
+      res.json({ err: true, msg: err.msg });
+      return console.log( err )
+    }
+    // Convert JSON string to JavaScript object
+    var profileData = JSON.parse( data );
+    console.log( "Data read from file: ", profileData );
 
-  return res.json({
-    "firstName": req.body.firstNameField,
-    "lastName": req.body.lastNameField,
-    "bio": req.body.bioField
-  })
+    // Render Jade view, and send data as options
+    res.render( "profile", {
+      firstname: profileData.firstNameField,
+      lastname: profileData.lastNameField,
+      bio: profileData.bioField
+    });
 
-});
+  });//end of cb
+});//end of get
+
+
+
 
 
 /** Start server on port 3000 **/
-
-// Use a callback function to report status to the console
 
 // The callback fires after the server is started
 
