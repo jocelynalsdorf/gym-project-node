@@ -1,0 +1,47 @@
+doctype strict
+html
+  head
+    title Edit profile
+
+    link(
+      rel = "stylesheet"
+    , type = "text/css"
+    , href= "/css/style.css")
+
+    body
+     
+     div( class = "container width700")
+
+      div( class = "panel panel-primary" )
+
+        div( class = "panel-heading" )
+
+          h1( class = "panel-title" ) Edit Profile
+
+        div( class = "panel-body" )
+   
+          div( class = "nameField pull-left")
+
+            label( for ="firstNameField")
+
+            input( type = "text", class = "form-control input-lg", placeholder = "first name" name ="firstNameField")
+
+          div( class="clear")
+
+           div( class = "nameField pull-right")
+
+            label( for = "lastNameField")
+
+            input( type = "text", class = "form-control input-lg", placeholder = "last name" name ="lastNameField")
+
+          div( class="clear")
+ 
+           form( action = "/settings/profile"  method = "post")
+
+          div( class = "form-group" )
+
+            input( type = "submit" class="btn btn-primary" value="submit")
+
+
+
+

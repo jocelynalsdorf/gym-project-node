@@ -16,10 +16,16 @@ app.set("views", root + "/views");
 app.set("view engine", "jade");
 
 //make dynamic routes
+//get the edit profile form
+app.get("/settings/profile", function editProfileCb(req, res) {
+  res.render("profile-form");
+});
 
-app.get("/jade_test", function jade_testCallBack(req, res) {
- // res.send("why Hello!");
-  res.render("test");
+//post route for form
+app.post("/settings/profile", function postProfileCb(req, res) {
+  //this code is run after the post is sent to the server
+  console.log("Post Received");
+  res.json({"status": "post recieved"});
 });
 
 
