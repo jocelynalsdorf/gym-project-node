@@ -4,10 +4,11 @@
   "description": "",
   "author": {
     "name": "joss",
-    "email":"",
+    "email": "",
     "url": ""
   },
   "dependencies": {
+    "ejs": "^2.3.4",
     "express": "*"
   }
 }
